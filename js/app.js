@@ -4,7 +4,7 @@ const info = document.querySelector("#infoDisplay");
 const dimention = 8;
 let playerGo = "black";
 player.textContent = "black";
-const createBoard = () => {
+(function createBoard() {
 	startPieces.forEach((startPiece, i) => {
 		const square = document.createElement("div");
 		square.classList.add("square");
@@ -25,28 +25,26 @@ const createBoard = () => {
 		}
 		gameBoard.append(square);
 	});
-};
-
-createBoard();
+})();
 
 const allSquares = document.querySelectorAll(".square");
 allSquares.forEach((square) => {
 	square.addEventListener("dragstart", dragStart);
-	square.addEventListener("dragover", dragOver);
+	// square.addEventListener("dragover", dragOver);
 	square.addEventListener("drop", dragDrop);
 });
 
-let startPostionId;
 let draggedElement;
+let startPostionId;
 
 function dragStart(e) {
 	draggedElement = e.target;
 	startPostionId = e.target.parentNode.getAttribute("square-id");
 }
 
-function dragOver(e) {
-	e.preventDefault();
-}
+// function dragOver(e) {
+// 	e.preventDefault();
+// }
 
 function dragDrop(e) {
 	e.stopPropagation();
@@ -128,5 +126,17 @@ function checkIfValid(target) {
 			)
 				return true;
 			break;
+		case "knight":
+			if (
+				startSquareId + dimention * 2 - 1 === targetSquareId ||
+				startSquareId + dimention * 2 + 1 === targetSquareId ||
+				startSquareId + dimention - 2 === targetSquareId ||
+				startSquareId + dimention + 2 === targetSquareId ||
+				startSquareId - dimention * 2 - 1 === targetSquareId ||
+				startSquareId - dimention * 2 + 1 === targetSquareId ||
+				startSquareId - dimention - 2 === targetSquareId ||
+				startSquareId - dimention + 2 === targetSquareId
+			) {
+			}
 	}
 }
